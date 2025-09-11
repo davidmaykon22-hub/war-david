@@ -15,13 +15,23 @@
 // ============================================================================
 
 // Inclusão das bibliotecas padrão necessárias para entrada/saída, alocação de memória, manipulação de strings e tempo.
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <locale.h>
+#include <time.h>
 // --- Constantes Globais ---
 // Definem valores fixos para o número de territórios, missões e tamanho máximo de strings, facilitando a manutenção.
-
+#define NUM_TERRITORIOS 5
+#define TAM_NOME 30
+#define TAM_COR 10
 // --- Estrutura de Dados ---
 // Define a estrutura para um território, contendo seu nome, a cor do exército que o domina e o número de tropas.
-
+typedef struct {
+    char nome[TAM_NOME];   // Nome do território
+    char cor[TAM_COR];     // Cor do exército 
+    int tropas;            // Quantidade de tropas
+} Territorio;
 // --- Protótipos das Funções ---
 // Declarações antecipadas de todas as funções que serão usadas no programa, organizadas por categoria.
 // Funções de setup e gerenciamento de memória:
@@ -32,6 +42,12 @@
 // --- Função Principal (main) ---
 // Função principal que orquestra o fluxo do jogo, chamando as outras funções em ordem.
 int main() {
+    // 1. Configuração Inicial (Setup):
+    setlocale(LC_ALL, "Portuguese");           // Suporte a acentuação (Windows)
+    srand(time(NULL));                         // Inicializa o gerador de números aleatórios
+
+    Territorio territorios[NUM_TERRITORIOS];   // Vetor para armazenar os territórios
+
     // 1. Configuração Inicial (Setup):
     // - Define o locale para português.
     // - Inicializa a semente para geração de números aleatórios com base no tempo atual.
