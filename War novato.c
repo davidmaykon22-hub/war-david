@@ -90,3 +90,9 @@ int main() {
         }
 
     } while (opcao != 0 && !venceu);
+
+    // 3. Limpeza
+    liberarMemoria(mapa);
+    return 0;
+}
+
