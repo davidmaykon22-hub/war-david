@@ -33,3 +33,26 @@ void faseDeAtaque(Territorio *mapa, int qtd, const char *corJogador);
 void simularAtaque(Territorio *origem, Territorio *destino);
 
 void limparBufferEntrada();
+
+// Função Principal
+// ============================================================================
+int main() {
+    setlocale(LC_ALL, "Portuguese");
+    srand(time(NULL));
+
+    // 1. Configuração Inicial
+    Territorio *mapa = alocarMapa(MAX_TERRITORIOS);
+    if (mapa == NULL) {
+        printf("Erro ao alocar memória para o mapa!\n");
+        return 1;
+    }
+
+    inicializarTerritorios(mapa, MAX_TERRITORIOS);
+
+    char corJogador[MAX_COR];
+    printf("Digite a cor do seu exército: ");
+    scanf(" %[^\n]", corJogador);
+
+    int missao = sortearMissao();
+    printf("\nSua missão secreta:\n");
+    exibirMissao(missao);
