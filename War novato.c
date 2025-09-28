@@ -96,3 +96,27 @@ int main() {
     return 0;
 }
 
+// Implementação das Funções
+// ============================================================================
+
+Territorio* alocarMapa(int qtd) {
+    return (Territorio*) calloc(qtd, sizeof(Territorio));
+}
+
+void inicializarTerritorios(Territorio *mapa, int qtd) {
+    printf("\nCadastro de Territórios\n\n");
+    for (int i = 0; i < qtd; i++) {
+        printf("Território %d:\n", i + 1);
+
+        printf("Nome do território: ");
+        scanf(" %[^\n]", mapa[i].nome);
+
+        printf("Cor do exército: ");
+        scanf(" %[^\n]", mapa[i].cor);
+
+        printf("Quantidade de tropas: ");
+        scanf("%d", &mapa[i].tropas);
+
+        printf("\n");
+    }
+}
