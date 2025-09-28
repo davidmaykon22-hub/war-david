@@ -120,3 +120,17 @@ void inicializarTerritorios(Territorio *mapa, int qtd) {
         printf("\n");
     }
 }
+
+void exibirMapa(const Territorio *mapa, int qtd) {
+    for (int i = 0; i < qtd; i++) {
+        printf("Território %d:\n", i + 1);
+        printf("Nome: %s\n", mapa[i].nome);
+        printf("Cor do Exército: %s\n", mapa[i].cor);
+        printf("Tropas: %d\n", mapa[i].tropas);
+        printf("-----------------------------\n");
+    }
+}
+
+void liberarMemoria(Territorio *mapa) {
+    free(mapa);
+}
