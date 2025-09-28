@@ -10,3 +10,10 @@
 #define MAX_NOME 30
 #define MAX_COR 10
 #define NUM_MISSOES 2
+
+// --- Estruturas ---
+typedef struct {
+    char nome[MAX_NOME];   // Nome do território
+    char cor[MAX_COR];     // Cor do exército
+    int tropas;            // Número de tropas
+} Territorio;
