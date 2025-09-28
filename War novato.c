@@ -17,3 +17,19 @@ typedef struct {
     char cor[MAX_COR];     // Cor do exército
     int tropas;            // Número de tropas
 } Territorio;
+
+// --- Protótipos de Funções ---
+Territorio* alocarMapa(int qtd);
+void inicializarTerritorios(Territorio *mapa, int qtd);
+void exibirMapa(const Territorio *mapa, int qtd);
+void liberarMemoria(Territorio *mapa);
+
+void exibirMenuPrincipal();
+void exibirMissao(int idMissao);
+int sortearMissao();
+int verificarVitoria(const Territorio *mapa, int qtd, int idMissao, const char *corJogador);
+
+void faseDeAtaque(Territorio *mapa, int qtd, const char *corJogador);
+void simularAtaque(Territorio *origem, Territorio *destino);
+
+void limparBufferEntrada();
