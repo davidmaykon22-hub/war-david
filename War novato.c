@@ -134,3 +134,26 @@ void exibirMapa(const Territorio *mapa, int qtd) {
 void liberarMemoria(Territorio *mapa) {
     free(mapa);
 }
+
+void exibirMenuPrincipal() {
+    printf("\n1 - Atacar\n");
+    printf("2 - Ver Missão\n");
+    printf("3 - Verificar Vitória\n");
+    printf("0 - Sair\n");
+    printf("Escolha: ");
+}
+
+void exibirMissao(int idMissao) {
+    printf("===== MISSÃO =====\n");
+    switch (idMissao) {
+        case 0:
+            printf("Conquistar pelo menos 2 territórios inimigos.\n");
+            break;
+        case 1:
+            printf("Destruir todos os territórios de uma cor inimiga específica.\n");
+            break;
+        default:
+            printf("Missão inválida.\n");
+    }
+    printf("==================\n");
+}
