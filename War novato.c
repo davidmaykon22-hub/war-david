@@ -157,3 +157,88 @@ void exibirMissao(int idMissao) {
     }
     printf("==================\n");
 }
+
+int sortearMissao() {
+    return rand() % NUM_MISSOES;
+}
+
+int verificarVitoria(const Territorio *mapa, int qtd, int idMissao, const char *corJogador) {
+    if (idMissao == 0) {
+        // Missão: conquistar pelo menos 2 territórios
+        int conquistados = 0;
+        for (int i = 0; i < qtd; i++) {
+            if (strcmp(mapa[i].cor, corJogador) == 0) {
+                conquistados++;
+            }
+        }
+        return (conquistados >= 2);
+    } else if (idMissao == 1) {
+        // Missão: destruir uma cor inimiga
+        char corInimiga[MAX_COR] = "Vermelho"; // exemplo fixo
+        for (int i = 0; i < qtd; i++) {
+            if (strcmp(mapa[i].cor, corInimiga) == 0)
+                return 0; // ainda existe território inimigo
+        }
+        return 1;
+    }
+    return 0;
+}
+
+void faseDeAtaque(Territorio *mapa, int qtd, const char *corJogador) {
+    char origemNome[MAX_NOME], destinoNome[MAX_NOME];
+    printf("\n=== FASE DE ATAQUE ===\n");
+    printf("Informe o território de origem (seu): ");
+    scanf(" %[^\n]", origemNome);
+    printf("Informe o território de destino (inimigo): ");
+    scanf(" %[^\n]", destinoNome);
+
+    Territorio *origem = NULL;
+    Territorio *destino = NULL;
+
+    for (int i = 0; i < qtd; i++) {
+        if (strcmp(mapa[i].nome, origemNome) == 0 && strcmp(mapa[i].cor, corJogador) == 0)
+            origem = &mapa[i];
+        if (strcmp(mapa[i].nome, destinoNome) == 0 && strcmp(mapa[i].cor, corJogador) != 0)
+            destino = &mapa[i];
+    }
+
+    if (origem == NULL || destino == NULL) {
+        printf("Territórios inválidos!\n");
+        return;
+    }
+
+    if (origem->tropas < 2) {
+        printf("Você precisa de pelo menos 2 tropas para atacar!\n");
+        return;
+    }
+
+    simularAtaque(origem, destino);
+}
+
+void simularAtaque(Territorio *origem, Territorio *destino) {
+    int dadoAtaque = rand() % 6 + 1;
+    int dadoDefesa = rand() % 6 + 1;
+
+    printf("\nAtaque de %s (%d tropas) contra %s (%d tropas)\n",
+           origem->nome, origem->tropas, destino->nome, destino->tropas);
+    printf("Dado do ataque: %d | Dado da defesa: %d\n", dadoAtaque, dadoDefesa);
+
+    if (dadoAtaque > dadoDefesa) {
+        destino->tropas--;
+        printf("Defensor perdeu 1 tropa!\n");
+        if (destino->tropas <= 0) {
+            strcpy(destino->cor, origem->cor);
+            destino->tropas = 1;
+            origem->tropas--;
+            printf("Território %s conquistado!\n", destino->nome);
+        }
+    } else {
+        origem->tropas--;
+        printf("Atacante perdeu 1 tropa!\n");
+    }
+}
+
+void limparBufferEntrada() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) {}
+}
