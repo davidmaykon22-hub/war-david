@@ -56,3 +56,37 @@ int main() {
     int missao = sortearMissao();
     printf("\nSua missão secreta:\n");
     exibirMissao(missao);
+
+    // 2. Loop 
+    int opcao;
+    int venceu = 0;
+    do {
+        printf("\n===== MENU PRINCIPAL =====\n");
+        exibirMapa(mapa, MAX_TERRITORIOS);
+        exibirMenuPrincipal();
+
+        scanf("%d", &opcao);
+        limparBufferEntrada();
+
+        switch (opcao) {
+            case 1:
+                faseDeAtaque(mapa, MAX_TERRITORIOS, corJogador);
+                break;
+            case 2:
+                exibirMissao(missao);
+                break;
+            case 3:
+                venceu = verificarVitoria(mapa, MAX_TERRITORIOS, missao, corJogador);
+                if (venceu)
+                    printf("\n🎉 PARABÉNS! Você cumpriu sua missão!\n");
+                else
+                    printf("\nAinda não cumpriu a missão. Continue jogando!\n");
+                break;
+            case 0:
+                printf("\nSaindo do jogo...\n");
+                break;
+            default:
+                printf("Opção inválida!\n");
+        }
+
+    } while (opcao != 0 && !venceu);
